@@ -6,16 +6,25 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Hello, world!</h1>
+                <h1>Bot</h1>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <h2>Log</h2>
+                {% if pid != false %}
+                    <span class="badge bg-success">running (PID: {{ pid }})</span>
+                {% else %}
+                    <span class="badge bg-danger">not running</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Log</h3>
                 <textarea cols="30" rows="10">{{ log }}</textarea>
             </div>
             <div class="col">
-                <h2>Error</h2>
+                <h3>Error</h3>
                 <textarea cols="30" rows="10">{{ error }}</textarea>
             </div>
         </div>

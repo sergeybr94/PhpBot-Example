@@ -15,6 +15,7 @@ class MainController extends AbstractController
 {
     const LOG_PATH = 'var/log/out.log';
     const ERROR_PATH = 'var/log/error.log';
+    const PID_FILE_PATH = 'var/tmp/app:check-currency.pid';
 
     private string $rootPath;
 
@@ -69,6 +70,7 @@ class MainController extends AbstractController
         $rootPath = $this->params->get('kernel.project_dir');
         $logPath = sprintf("%s/%s", $rootPath, self::LOG_PATH);
         $errorPath = sprintf("%s/%s", $rootPath, self::ERROR_PATH);
+        $pidFilePath = sprintf("%s/%s", $rootPath, self::PID_FILE_PATH);
 
         if ($this->filesystem->exists($logPath)) {
             $logs = file_get_contents($logPath);
@@ -78,10 +80,14 @@ class MainController extends AbstractController
             $error = file_get_contents($errorPath);
         }
 
+        if ($this->filesystem->exists($pidFilePath)) {
+            $pid = file_get_contents($pidFilePath);
+        }
 
         return [
             'log' => $logs ?? '',
             'error' => $error ?? '',
+            'pid' => $pid ?? false,
         ];
     }
 }
