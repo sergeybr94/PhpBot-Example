@@ -51,7 +51,7 @@ class CheckCurrencyDiffCommand extends Command
     {
         $this->output = $output;
         if ($this->shouldStop) {
-            $this->writeError("Command was run before");
+            $this->writeError("The bot is already running");
             return Command::FAILURE;
         }
 
